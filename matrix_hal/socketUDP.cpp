@@ -79,4 +79,21 @@ int socketUDP::send(std::string ip, int port, std::string data){
     return 1;
 }
 
+int socketUDP::send(std::string ip, int port,std::valarray<int16_t> buf, int length){
+      std::ostringstream oss;
+      if (buf.size())
+      {
+        // Convert all but the last element to avoid a trailing ","
+        std::copy(std::begin(buf), std::end(buf)-1,
+            std::ostream_iterator<int16_t>(oss, ","));
+
+        // Now add the last element with no delimiter
+        oss << buf[buf.size()-1 ];
+      }
+      std::cout << oss.str() <<"\n";
+      std::string packet = oss.str();
+      int result = send(ip,port, packet);
+      return result;
+}
+
 }

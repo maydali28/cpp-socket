@@ -10,6 +10,11 @@
 #include <cerrno>
 #include <string>
 #include <fcntl.h>
+#include <valarray>
+#include <iostream>
+#include <iterator>
+#include <ostream>
+#include <sstream>
 
 #define MAX_BUFFER 1024
 
@@ -33,6 +38,7 @@ namespace matrix_hal{
 			int send(std::string data);
 			int send(std::string ip,std::string data);
 			int send(std::string ip, int port,std::string data);
+			int send(std::string ip, int port,std::valarray<int16_t> buf, int length);
 	private:
 		int socketfd;
         struct sockaddr_in address;

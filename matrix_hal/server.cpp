@@ -30,6 +30,10 @@ int server::bind(){
     close();
     return errno;
   }
+  int n;
+  unsigned int m = sizeof(n);
+getsockopt(socketfd,SOL_SOCKET,SO_RCVBUF,(void *)&n, &m);
+  printf("%d %d\n",n,m);
 
   if(::bind(socketfd,(struct sockaddr *)&addr,sizeof(struct sockaddr))!= 0){
     close();
@@ -55,4 +59,6 @@ bool server::valid(){
 int server::get_socket(){
   return socketfd;
 }
+
+
 }
